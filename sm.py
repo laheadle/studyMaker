@@ -14,6 +14,9 @@ ofile.write("""
 <link type="text/css" href="./t.css" rel="stylesheet"></link>
 
 <body>
+<div id="message"></div>
+<div id="wrapper">
+
 """)
 
 def pairs(lst):
@@ -28,12 +31,12 @@ def pairs(lst):
     return retval
 
 for p in pairs(ifile.readlines()):
-    ofile.write('<div class="question"> %s </div>'%p[0])
-    ofile.write('<div class="answer"> %s </div>'%p[1])
+    ofile.write('<div class="question">%s</div>'%p[0])
+    ofile.write('<div class="answer">%s</div>'%p[1])
 
 
 ofile.write("""
-
+</div>
 </body>
 </html>
 """)

@@ -1,2 +1,12 @@
 
 .answer{ display: none; font-weight: bold; }
+
+.question { border-left: 1px solid gray; padding-left: 5px; }
+
+.selected { border: 1px solid gray; }
+
+a { color: black; text-decoration: none; }
+
+#message { font-size: 18px; font-weight: bold; position: fixed; left: 10px; top: 0px; background-color: white; width: 100%; padding: 20px; }
+
+#wrapper { margin-top: 65px; padding-left: 20px; }
