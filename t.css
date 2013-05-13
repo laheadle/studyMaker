@@ -1,12 +1,70 @@
 
+/*
+
+.color0 { background-color: black; }
+.color1 { background-color: red; }
+.color2 { background-color: green; }
+.color3 { background-color: blue; }
+.color4 { background-color: brown; }
+.color5 { background-color: purple; }
+
+*/
+
+/*
+.color0 { background-color: ; }
+.color1 { background-color: ; }
+.color2 { background-color: ; }
+.color3 { background-color: ; }
+.color4 { background-color: ; }
+.color5 { background-color: ; }
+*/
+
+.color0 { background-color: #e31b23; }
+.color1 { background-color: #215352; }
+.color2 { background-color: #98002e; }
+.color3 { background-color: #0db33f; }
+.color4 { background-color: #9c5708; }
+.color5 { background-color: #00467f; }
+
+body { font-family: Arial; padding: 30px; }
+
+.answer, .question { float: left; }
+
 .answer{ display: none; font-weight: bold; }
 
-.question { border-left: 1px solid gray; padding-left: 5px; }
+.question { 
+    position: relative; 
+    cursor: pointer; 
+    color: white; 
+    border: 1px solid black; 
+    padding: 15px; 
+    font-size: 17px; 
+}
 
-.selected { border: 1px solid gray; }
+.selected { background-color: black; }
 
-a { color: black; text-decoration: none; }
+a { text-decoration: none; }
 
-#message { font-size: 18px; font-weight: bold; position: fixed; left: 10px; top: 0px; background-color: white; width: 100%; padding: 20px; }
+#message { font-size: 22px; position: fixed; 
+           left: 0px; top: 0px; background-color: black; 
+           color: white; padding: 20px; width: 100%;
+           margin: 0px;
+}
 
-#wrapper { margin-top: 65px; padding-left: 20px; }
+#wrapper { margin-top: 35px; padding-left: 20px; }
+
+.delete {
+    background-color: black;
+    color: red;
+    position: absolute;
+    top: 0px;
+    border: 1px solid gray;
+    font-size: 8px;
+    cursor: pointer;
+    right: 0px;
+}
+
+.delete:hover {
+    background-color: red;
+    color: black;
+}

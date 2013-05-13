@@ -1,4 +1,4 @@
-import sys
+import sys, random
 
 fname = sys.argv[1]
 
@@ -14,7 +14,7 @@ ofile.write("""
 <link type="text/css" href="./t.css" rel="stylesheet"></link>
 
 <body>
-<div id="message"></div>
+<div id="message">Let the learning begin.</div>
 <div id="wrapper">
 
 """)
@@ -30,8 +30,10 @@ def pairs(lst):
             cur = None
     return retval
 
+random.seed(12345)
+
 for p in pairs(ifile.readlines()):
-    ofile.write('<div class="question">%s</div>'%p[0])
+    ofile.write('<div class="question %s"><button class="delete">X</button>%s</div>'%('color'+str(random.randint(0, 5)), p[0]))
     ofile.write('<div class="answer">%s</div>'%p[1])
 
 
