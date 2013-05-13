@@ -8,7 +8,7 @@ $(function() {
     function select(question) {
         var txt = question.next().text()
         $('#message').text(txt) 
-        $('.question').removeClass('selected')
+        $('.question.selected').removeClass('selected')
         question.addClass('selected')
     }
     
@@ -19,10 +19,17 @@ $(function() {
     })
 
     function swap(question) {
-        var qtext = question.text()
+        var oldq = question
+        .clone() 
+        .children()
+        .remove()
+        .end()
+        .text();
         var answer = question.next('.answer')
-        question.text(answer.text())
-        answer.text(qtext)
+        var del = question.children()
+        question.text(answer.text()).append(del)
+        answer.text(oldq)
+        clickHandle(del)
     }
 
     function swapAll() {
@@ -39,7 +46,11 @@ $(function() {
             return false
         }
         if (ctrlKeyPressed(event)) {
-            var url = mkGoogleUrl($(event.target).text())
+            var url = mkGoogleUrl($(event.target).clone()    //clone the element
+                                  .children() //select all the children
+                                  .remove()   //remove all the children
+                                  .end()  //again go back to selected element
+                                  .text());
         }
         else {
             var url = mkGoogleUrl($(event.target).next().text())
@@ -49,10 +60,14 @@ $(function() {
         win.focus();
     })
 
-    $('.delete').click(function() {
-        var parent = $(this).parent()
-        parent.hide('fast', function(){ parent.remove(); });
-        return false
-    })
+
+    function clickHandle(del) {
+        del.click(function() {
+            var parent = $(this).parent().parent()
+            parent.hide('slow', function(){ parent.remove(); });
+            return false
+        })
+    }
+    clickHandle($('.delete'))
 })
 

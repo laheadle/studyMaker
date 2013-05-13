@@ -33,8 +33,8 @@ def pairs(lst):
 random.seed(12345)
 
 for p in pairs(ifile.readlines()):
-    ofile.write('<div class="question %s"><button class="delete">X</button>%s</div>'%('color'+str(random.randint(0, 5)), p[0]))
-    ofile.write('<div class="answer">%s</div>'%p[1])
+    ofile.write('<div class="pair"><div class="question %s"><button class="delete" title="delete forever">X</button>%s</div>'%('color'+str(random.randint(0, 5)), p[0]))
+    ofile.write('<div class="answer">%s</div></div>'%p[1])
 
 
 ofile.write("""

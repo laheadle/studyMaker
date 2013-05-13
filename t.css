@@ -48,17 +48,20 @@ a { text-decoration: none; }
 #message { font-size: 22px; position: fixed; 
            left: 0px; top: 0px; background-color: black; 
            color: white; padding: 20px; width: 100%;
-           margin: 0px;
+           margin: 0px; z-index: 100;
 }
 
 #wrapper { margin-top: 35px; padding-left: 20px; }
 
+.selected .delete { visibility: visible; }
+
 .delete {
+    visibility: hidden;
     background-color: black;
     color: red;
     position: absolute;
     top: 0px;
-    border: 1px solid gray;
+    border: none;
     font-size: 8px;
     cursor: pointer;
     right: 0px;
