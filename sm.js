@@ -18,6 +18,13 @@ $(function() {
         select(target.hasClass('delete')? target.parent() : target)
     })
 
+    $('html').mouseover(function(event) { 
+        if (event.target.nodeName === 'BODY' || event.target.nodeName === 'HTML') {
+            $('.question.selected').removeClass('selected')
+            $('#message').text('Hover over a question to see the answer.') 
+        }
+    })
+
     function swap(question) {
         var oldq = question
         .clone() 

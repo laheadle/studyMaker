@@ -9,6 +9,7 @@ ofile.write("""
 <!doctype html>
 <html>
 <head>
+<meta charset="UTF-8">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="./sm.js"></script>
 <link type="text/css" href="./t.css" rel="stylesheet"></link>
