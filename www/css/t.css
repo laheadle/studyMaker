@@ -41,6 +41,8 @@ body { opacity: 0; font-family: Arial; padding: 30px; height: 2000px; }
     font-size: 18px; 
 }
 
+.hidden { display: none; }
+
 .selected { background-color: black; }
 
 a { text-decoration: none; }

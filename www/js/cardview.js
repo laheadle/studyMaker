@@ -5,8 +5,13 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs'], fu
         template: _.template(cardTemplate),
         className: "pair",
         events: {
-            "mouseenter"   : "show",
-            "click .delete" : "del",
+            "mouseenter"   : "reveal",
+
+            "click .delete" : function() {
+                this.model.set('hide', true)
+                return false
+            },
+
             "click .question" : "google"
         },
 
@@ -16,19 +21,19 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs'], fu
 
         render: function() {
             this.$el.html(this.template(this.model.toJSON()));
+
+            // If they've just hidden this card:
+            if (this.model.changed.hide) {
+                var $elt = this.$el
+                $elt.animate({opacity: 0}, 400, 'linear', function(){ $elt.addClass('hidden'); });
+            }
             return this;
         },
 
-        show: function() {
+        reveal: function() {
             Message.set('msg', this.model.get('answer'))
             $('.question.selected').removeClass('selected')
             this.$('.question').addClass('selected')
-        },
-
-        del: function() {
-            var that = this
-            this.$el.animate({opacity: 0}, 400, 'linear', function(){ that.remove(); });
-            return false
         },
 
         google: function(event) {
