@@ -1,8 +1,8 @@
 
-define(['underscore', 'backbone', 'jquery', 'message'], function (_, Backbone, $, Message) {
+define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs'], function (_, Backbone, $, Message, cardTemplate) {
 
     var CardView = Backbone.View.extend({
-        template: _.template($('#card-template').html()),
+        template: _.template(cardTemplate),
         className: "pair",
         events: {
             "mouseenter"   : "show",
