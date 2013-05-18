@@ -1,5 +1,7 @@
 
-define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs'], function (_, Backbone, $, Message, cardTemplate) {
+define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs', 'state'], 
+
+       function (_, Backbone, $, Message, cardTemplate, State) {
 
     var CardView = Backbone.View.extend({
         template: _.template(cardTemplate),
@@ -7,8 +9,13 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs'], fu
         events: {
             "mouseenter"   : "reveal",
 
-            "click .delete" : function() {
-                this.model.set('hide', true)
+            "click .increment" : function() {
+                this.model.set('difficulty', this.model.get('difficulty') + 1)
+                return false
+            },
+
+            "click .decrement" : function() {
+                this.model.set('difficulty', this.model.get('difficulty') - 1)
                 return false
             },
 
@@ -17,17 +24,26 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs'], fu
 
         initialize: function() {
             this.listenTo(this.model, 'change', this.render)
+            this.listenTo(this.model, 'change:difficulty', this.hide)
+            this.listenTo(State, 'change', this.render)
         },
 
         render: function() {
-            this.$el.html(this.template(this.model.toJSON()));
+            var $elt = this.$el
+            $elt.html(this.template(this.model.toJSON()));
 
-            // If they've just hidden this card:
-            if (this.model.changed.hide) {
-                var $elt = this.$el
-                $elt.animate({opacity: 0}, 400, 'linear', function(){ $elt.addClass('hidden'); });
+            if (State.get('difficulty') === this.model.get('difficulty')) {
+                $elt.removeClass('hidden')
+            }
+            else {
+                $elt.addClass('hidden')
             }
             return this;
+        },
+
+        hide: function() {
+            var $elt = this.$el
+            $elt.addClass('hidden')
         },
 
         reveal: function() {

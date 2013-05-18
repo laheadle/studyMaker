@@ -3,7 +3,8 @@ requirejs.config({
         tmpl: '../tmpl',
         jquery: 'http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery',
         underscore: 'http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore',
-        backbone: 'http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone'
+        backbone: 'http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone',
+        text: 'lib/text'
     },
     shim: {
         backbone: {
@@ -24,6 +25,7 @@ require(['underscore', 'backbone', 'jquery',
         function (_, Backbone, $, CardView, Message, Sheet) {
 
             Sheet.reset(JSON.parse($('#questions').text()))
+
             $('body').animate({'opacity': 1}, 300)
 
             $(document).click(function(event) {

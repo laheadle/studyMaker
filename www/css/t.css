@@ -57,6 +57,16 @@ a { text-decoration: none; }
 #content { margin-top: 55px; padding-left: 20px; }
 
 .selected .delete { visibility: visible; }
+.pair .selected .decrement, .pair .selected .increment { visibility: visible; }
+
+.pair .decrement, .pair .increment {
+    visibility: hidden;
+    background-color: black;
+    color: red;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+}
 
 .delete {
     visibility: hidden;
@@ -70,7 +80,7 @@ a { text-decoration: none; }
     right: 0px;
 }
 
-.delete:hover {
+.delete:hover, .increment:hover, .decrement:hover {
     background-color: red;
     color: black;
 }

@@ -32,7 +32,6 @@ app.configure('production', function(){
 
 app.get('/sheet/:id', function(req, res) {
     fs.readFile('./sheets/json/'+req.params.id+'.json', 'utf-8', function(err, json) {
-        console.log(json)
         res.render('root', {json: json})
     })
 })
