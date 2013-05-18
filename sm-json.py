@@ -21,8 +21,11 @@ def pairs(lst):
 lines = []
 random.seed(12345)
 
+import json
+
 for p in pairs(ifile.readlines()):
-    lines.append('{"show": "q", "color": "%s", "question": "%s", "answer": "%s"}'%('color'+str(random.randint(0, 5)),p[0][:-1], p[1][:-1]))
+    jsonDict = {'show': 'q', 'color': 'color'+str(random.randint(0, 5)), 'question': p[0][:-1], 'answer': p[1][:-1]}
+    lines.append(json.dumps(jsonDict))
 
 ofile.write(','.join(lines))
 
