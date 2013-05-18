@@ -3,22 +3,15 @@ import sys, random
 fname = sys.argv[1]
 
 ifile = open(fname+'.txt', 'r')
-ofile = open(fname+'.html', 'w')
+ofile = open('./www/'+fname+'.html', 'w')
 
 ofile.write("""
 <!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script src="./sm.js"></script>
-<link type="text/css" href="./t.css" rel="stylesheet"></link>
+<link type="text/css" href="/css/t.css" rel="stylesheet"></link>
 
-<body>
-<div id="message">Let the learning begin.</div>
-<div id="wrapper">
-
-""")
+<script id="questions" type="text/json">[""")
 
 def pairs(lst):
     cur = None
@@ -31,14 +24,33 @@ def pairs(lst):
             cur = None
     return retval
 
+lines = []
 random.seed(12345)
 
 for p in pairs(ifile.readlines()):
-    ofile.write('<div class="pair"><div class="question %s"><button class="delete" title="delete forever">X</button>%s</div>'%('color'+str(random.randint(0, 5)), p[0]))
-    ofile.write('<div class="answer">%s</div></div>'%p[1])
+    lines.append('{"show": "q", "color": "%s", "question": "%s", "answer": "%s"}'%('color'+str(random.randint(0, 5)),p[0][:-1], p[1][:-1]))
 
+ofile.write(','.join(lines))
 
-ofile.write("""
+ofile.write("""]
+</script>
+
+<script data-main="js/main.js" src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.5/require.min.js"></script>
+
+<script type="text/template" id="card-template">
+  <div class="question <%= color %>">
+    <button class="delete" title="delete forever">X</button>
+    <%- question %>
+  </div>
+  <div class="answer <%= show == 'q' ? 'show' : 'hide'%>">
+    <%- answer %>
+  </div>
+</script>
+
+</head>
+<body>
+<div id="message">Let the learning begin.</div>
+<div id="content">
 </div>
 </body>
 </html>

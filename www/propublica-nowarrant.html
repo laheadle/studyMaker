@@ -1,0 +1,28 @@
+
+<!doctype html>
+<html>
+<head>
+<link type="text/css" href="/css/t.css" rel="stylesheet"></link>
+
+<script id="questions" type="text/json">[{"show": "q", "color": "color2", "question": "Police can get phone records without a warrant thanks to [], a Supreme Court ruling in [] which found that the Constitution's Fourth Amendment protection against unreasonable search and seizure doesn't apply to a list of phone numbers. T", "answer": "Smith v. Maryland, 1979"},{"show": "q", "color": "color0", "question": "police can get courts to sign off on a subpoena, which only requires that [] — a lesser standard of evidence.", "answer": "the data they're after is relevant to an investigation"},{"show": "q", "color": "color4", "question": " The major cell carriers, including Verizon and AT&T, responded to[]  law enforcement requests for cell phone locations, text messages and other data in 2011.", "answer": "at least 1.3 million"},{"show": "q", "color": "color1", "question": "Many courts have ruled that police don't need a warrant from a judge to get cell phone location data. They only have to show that, under the federal [] the data contains [] related to an investigation — again, a lesser standard than probable cause.", "answer": "Electronic Communications Privacy Act (EPCA), "specific and articulable facts""},{"show": "q", "color": "color2", "question": "A warrant is needed for access to some emails (see below), but not for the IP addresses of the computers used to log into your mail account or surf the Web. According to the American Civil Liberties Union, those records are kept for", "answer": "at least a year."},{"show": "q", "color": "color1", "question": "Police can thank [], a case involving two men trying to set up a drug lab in California, for the ease of access. In the [] case, the government successfully argued that tracking IP addresses was no different than installing a device to track every telephone number dialed by a given phone (which is legal). ", "answer": " U.S. v. Forrester, 2007"},{"show": "q", "color": "color3", "question": "A warrant is needed to get [], but law enforcement can obtain [] with only a subpoena. ", "answer": "recent emails, older ones"},{"show": "q", "color": "color0", "question": "Google says it received [] requests for data — including emails sent through its Gmail service — from U.S. law enforcement in 2012. And Microsoft, with its Outlook email service, disclosed last month that it had received [] requests for data last year.", "answer": "16,407, 11,073"},{"show": "q", "color": "color0", "question": " In January, Google said ", "answer": "that it would lobby in favor of greater protections for email."},{"show": "q", "color": "color2", "question": "This is another area where the ECPA comes into play. The law gives greater protection to recent messages than older ones, using a [] cutoff.  Only a subpoena is required for emails older than that; otherwise, a warrant is necessary.", "answer": "180-day "},{"show": "q", "color": "color3", "question": "The ECPA distinguishes between communications — emails, texts, etc. — and []. Draft emails fall into the latter, which get less protection under the law.", "answer": "stored electronic data"},{"show": "q", "color": "color1", "question": "Investigators need only a subpoena, not a warrant, to get [] more than 180 days old from a cell provider ", "answer": "text messages"},{"show": "q", "color": "color3", "question": "Ohio's Supreme Court has ruled thatpolice need a warrant to view []. But the California Supreme Court has said no warrant is needed. The U.S. Supreme Court in 2010 declined to clear up the matter.", "answer": "the contents of cell phones of people who've been arrested, including texts"},{"show": "q", "color": "color2", "question": "But files that you've shared with others — say, a collaboration using Google Docs — might require a warrant under the ECPA if it's considered [] rather than []", "answer": ""communication", stored data. "}]
+</script>
+
+<script data-main="js/main.js" src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.5/require.min.js"></script>
+
+<script type="text/template" id="card-template">
+  <div class="question <%= color %>">
+    <button class="delete" title="delete forever">X</button>
+    <%- question %>
+  </div>
+  <div class="answer <%= show == 'q' ? 'show' : 'hide'%>">
+    <%- answer %>
+  </div>
+</script>
+
+</head>
+<body>
+<div id="message">Let the learning begin.</div>
+<div id="content">
+</div>
+</body>
+</html>

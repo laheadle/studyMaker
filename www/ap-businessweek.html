@@ -1,0 +1,28 @@
+
+<!doctype html>
+<html>
+<head>
+<link type="text/css" href="/css/t.css" rel="stylesheet"></link>
+
+<script id="questions" type="text/json">[{"show": "q", "color": "color2", "question": "who took over supervising the investigation after Attorney General Eric Holder recused himself", "answer": "Deputy Attorney General James Cole"},{"show": "q", "color": "color0", "question": "Cole wrote to Gary B. Pruitt", "answer": ""The subpoenas were limited to a reasonable period of time and did not seek the content of any calls""},{"show": "q", "color": "color4", "question": "Under Holder, the Justice Department has prosecuted more government officials for alleged leaks under [] than all his predecessors combined. ", "answer": "the World War I-era Espionage Act"},{"show": "q", "color": "color1", "question": "The Obama administration has brought indictments against[]  for leaking information.", "answer": "five government workers"},{"show": "q", "color": "color2", "question": "[] is pursuing a sixth case against Bradley Manning,", "answer": "The Defense Department "},{"show": "q", "color": "color1", "question": "Senate Majority Leader Harry Reid, a [], told reporters today the subpoena of the AP records was “inexcusable and there’s no way to justify this.”", "answer": "Nevada Democrat"},{"show": "q", "color": "color3", "question": "Holder, who has been targeted by Republicans over the probe, said at a news conference in Washington today that he recused himself", "answer": "“to avoid the appearance of a potential conflict of interest and to make sure that the investigation was seen as independent.”"},{"show": "q", "color": "color0", "question": "Cole, in his letter to the AP, said the investigation into national security leaks included more than", "answer": "550 interviews and the review of tens of thousands of documents before the Justice Department sought the AP records."},{"show": "q", "color": "color0", "question": "Cole said the subpoenas were part of the criminal investigation opened in ", "answer": "May 2012."},{"show": "q", "color": "color2", "question": " The Justice Department subpoenaed records from “a portion” of the months of ", "answer": "April and May 2012."},{"show": "q", "color": "color3", "question": "To contact the reporters on this story", "answer": "Phil Mattingly in Washington at pmattingly@bloomberg.net; Jim Snyder in Washington at jsnyder24@bloomberg.net"},{"show": "q", "color": "color1", "question": "To contact the editor responsible for this story", "answer": "Steven Komarow at skomarow1@bloomberg.net"}]
+</script>
+
+<script data-main="js/main.js" src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.5/require.min.js"></script>
+
+<script type="text/template" id="card-template">
+  <div class="question <%= color %>">
+    <button class="delete" title="delete forever">X</button>
+    <%- question %>
+  </div>
+  <div class="answer <%= show == 'q' ? 'show' : 'hide'%>">
+    <%- answer %>
+  </div>
+</script>
+
+</head>
+<body>
+<div id="message">Let the learning begin.</div>
+<div id="content">
+</div>
+</body>
+</html>

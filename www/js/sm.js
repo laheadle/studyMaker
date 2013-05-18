@@ -71,7 +71,7 @@ $(function() {
     function clickHandle(del) {
         del.click(function() {
             var parent = $(this).parent().parent()
-            parent.hide('slow', function(){ parent.remove(); });
+            parent.animate({opacity: 0}, 400, 'linear', function(){ parent.remove(); });
             return false
         })
     }
