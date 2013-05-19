@@ -10,16 +10,21 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs', 'st
             "mouseenter"   : "reveal",
 
             "click .increment" : function() {
-                this.model.set('difficulty', this.model.get('difficulty') + 1)
+                this.setDifficulty(function(d){ return d + 1 })
                 return false
             },
 
             "click .decrement" : function() {
-                this.model.set('difficulty', this.model.get('difficulty') - 1)
+                this.setDifficulty(function(d){ return d - 1 })
                 return false
             },
 
             "click .question" : "google"
+        },
+
+        setDifficulty: function(fun) {
+            this.model.set('difficulty', fun(this.model.get('difficulty')))
+            this.model.save()
         },
 
         initialize: function() {

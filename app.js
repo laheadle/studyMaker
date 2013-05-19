@@ -30,6 +30,11 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
+app.put('/card/:id', function(req, res) {
+    //console.log(req.body)
+    res.send({status: 'ok'})
+})
+
 app.get('/sheet/:id', function(req, res) {
     fs.readFile('./sheets/json/'+req.params.id+'.json', 'utf-8', function(err, json) {
         res.render('root', {json: json})
