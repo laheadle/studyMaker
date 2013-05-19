@@ -30,6 +30,8 @@ body { opacity: 0; font-family: Arial; padding: 30px; height: 2000px; }
 
 .answer, .question { float: left; }
 
+.difficultyLevel { font-weight: bold }
+
 .answer{ display: none; font-weight: bold; }
 
 .question { 

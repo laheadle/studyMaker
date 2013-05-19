@@ -22,9 +22,17 @@ lines = []
 random.seed(12345)
 
 import json
-
+id = 0
 for p in pairs(ifile.readlines()):
-    jsonDict = {'show': 'q', 'color': 'color'+str(random.randint(0, 5)), 'question': p[0][:-1], 'answer': p[1][:-1]}
+    id += 1
+    jsonDict = {
+        'id': id, 
+        'difficulty': 5,
+        'show': 'q', 
+        'color': 'color'+str(random.randint(0, 5)), 
+        'question': p[0][:-1], 
+        'answer': p[1][:-1]
+        }
     lines.append(json.dumps(jsonDict))
 
 ofile.write(','.join(lines))
