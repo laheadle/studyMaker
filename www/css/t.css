@@ -63,11 +63,21 @@ a { text-decoration: none; }
     visibility: hidden;
     background-color: black;
     color: red;
+    position: absolute;
     border: none;
     font-size: 12px;
     cursor: pointer;
 }
 
+.pair .decrement {
+    top: 0;
+    right: 20px;
+}
+
+.pair .increment {
+    top: 0;
+    right: 0px;
+}
 .delete {
     visibility: hidden;
     background-color: black;
