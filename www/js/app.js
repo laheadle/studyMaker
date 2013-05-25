@@ -21,6 +21,6 @@ define(['underscore', 'backbone', 'jquery', 'sheet', 'cardview', 'state', 'diffi
         addAll: function() {
             Sheet.each(this.addOne, this);
         }
-    }))({model: State})
+    }))({model: State}) // xxx this is not referenced here...
 
 })

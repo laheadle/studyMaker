@@ -38,9 +38,10 @@ body { opacity: 0; font-family: Arial; padding: 30px; height: 2000px; }
     position: relative; 
     cursor: pointer; 
     color: white; 
-    border: 1px solid black; 
     padding: 15px; 
     font-size: 18px; 
+    margin-bottom: 2px;
+    margin-right: 2px;
 }
 
 .hidden { display: none; }

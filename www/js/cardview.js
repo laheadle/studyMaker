@@ -23,13 +23,13 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs', 'st
         },
 
         setDifficulty: function(fun) {
-            this.model.set('difficulty', fun(this.model.get('difficulty')))
+            this.model.set('cdifficulty', fun(this.model.get('cdifficulty')))
             this.model.save()
         },
 
         initialize: function() {
             this.listenTo(this.model, 'change', this.render)
-            this.listenTo(this.model, 'change:difficulty', this.hide)
+            this.listenTo(this.model, 'change:cdifficulty', this.hide)
             this.listenTo(State, 'change', this.render)
         },
 
@@ -37,7 +37,7 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs', 'st
             var $elt = this.$el
             $elt.html(this.template(this.model.toJSON()));
 
-            if (State.get('difficulty') === this.model.get('difficulty')) {
+            if (State.get('cdifficulty') === this.model.get('cdifficulty')) {
                 $elt.removeClass('hidden')
             }
             else {
@@ -52,7 +52,7 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs', 'st
         },
 
         reveal: function() {
-            Message.set('msg', this.model.get('answer'))
+            Message.set('msg', this.model.get('canswer'))
             $('.question.selected').removeClass('selected')
             this.$('.question').addClass('selected')
         },
@@ -65,7 +65,7 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs', 'st
 
             function ctrlKeyPressed(e) { return e.ctrlKey }
 
-            var url = mkGoogleUrl(this.model.get(ctrlKeyPressed(event)? 'question' : 'answer'))
+            var url = mkGoogleUrl(this.model.get(ctrlKeyPressed(event)? 'cquestion' : 'canswer'))
             var win=window.open(url, '_blank');
             win.blur();
             win.focus();

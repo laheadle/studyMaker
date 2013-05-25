@@ -6,7 +6,16 @@
 var express = require('express')
   , http = require('http')
 , fs = require('fs')
-  , path = require('path');
+  , path = require('path')
+, Step = require('step')
+, mysql = require('mysql')
+
+var pool  = mysql.createPool({
+    host     : 'localhost',
+    user     : 'root',
+    password : '1234',
+    database: 'study'
+});
 
 var app = express();
 
@@ -31,14 +40,66 @@ app.configure('production', function(){
 });
 
 app.put('/card/:id', function(req, res) {
-    //console.log(req.body)
-    res.send({status: 'ok'})
+    console.log(req.body)
+    Step(
+        function openConn() {
+            pool.getConnection(this);
+        },
+        function withConn(err, connection) {
+            if (err) {
+                console.log(err)
+                throw new Error
+            }
+            connection.query('update tcard SET ? where cid = ?', [req.body, req.params.id], this)
+        },
+        function done(err) {
+            if (err) {
+                console.log(err)
+                throw new Error
+            }
+            res.send({status: 'ok'})
+        }
+    )
 })
 
-app.get('/sheet/:id', function(req, res) {
-    fs.readFile('./sheets/json/'+req.params.id+'.json', 'utf-8', function(err, json) {
-        res.render('root', {json: json})
-    })
+app.get('/sheets/all', function(req, res) {
+    Step(
+        function openConn() {
+            pool.getConnection(this);
+        },
+        function withConn(err, connection) {
+            if (err) {
+                console.log(err)
+                throw new Error
+            }
+            connection.query('select * from tsheet', function(err, rows) {
+                res.render('sheetList', {json: JSON.stringify(rows)})
+            })
+        }
+    )
+})         
+
+
+app.get('/sheets/:id', function(req, res) {
+    Step(
+        function openConn() {
+            pool.getConnection(this);
+        },
+        function withConn(err, connection) {
+            if (err) {
+                console.log(err)
+                return
+            }
+            connection.query('select * from tcard where csheet = ?', req.params.id, this);
+        },
+        function rows(err, rows) {
+            if (err) {
+                console.log(err)
+                return
+            }
+            res.render('sheetItem', {json: JSON.stringify(rows)})
+        }
+    )
 })
 
 http.createServer(app).listen(app.get('port'), function(){

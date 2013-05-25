@@ -5,7 +5,7 @@ var createSheet =
 
 var createCard = 
     "create table tcard (cid integer auto_increment primary key,  cquestion text not null, canswer text not null, "+
-    "cdifficulty integer not null, cshow varchar(1) not null, csheet integer not null references tsheet)"
+    "cdifficulty integer not null, cshow varchar(1) not null, ccolor varchar(32) not null, csheet integer not null references tsheet)"
 
 
 var pool  = mysql.createPool({
@@ -17,6 +17,7 @@ var pool  = mysql.createPool({
 
 pool.getConnection(function(err, connection) {
     connection.query(createSheet, function(err, rows) {
+
         if (err) {
             console.log('sheet failed', err)
         }

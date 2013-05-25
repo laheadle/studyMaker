@@ -18,12 +18,12 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/difficulty.ejs
         },
 
         increment: function() {
-            State.set('difficulty', State.get('difficulty') + 1)
+            State.set('cdifficulty', State.get('cdifficulty') + 1)
             return false
         },
 
         decrement: function() {
-            State.set('difficulty', State.get('difficulty') - 1)
+            State.set('cdifficulty', State.get('cdifficulty') - 1)
             return false
         },
 

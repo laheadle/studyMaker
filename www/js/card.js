@@ -5,11 +5,12 @@ define(['underscore', 'backbone', 'jquery'], function (_, Backbone, $) {
     var Card = Backbone.Model.extend({
 
         urlRoot: '/card',
+        idAttribute: 'cid',
 
         swap: function() { 
-            var q = this.get('question')
-            this.set('question', this.get('answer'))
-            this.set('answer', q)
+            var q = this.get('cquestion')
+            this.set('cquestion', this.get('canswer'))
+            this.set('canswer', q)
         }
     })
 
