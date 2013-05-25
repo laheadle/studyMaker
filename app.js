@@ -39,9 +39,13 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
-app.put('/card/:id', function(req, res) {
-    console.log(req.body)
-    Step(
+
+// Abstracts the connection pooling and error handling which all the
+// requests are doing.  'query' is called once the connection is
+// received. 'onResult' is called when the query has returned
+// additional arguments are run afterwards via Step
+function stepCon(query, onResult) {
+    var funs = [
         function openConn() {
             pool.getConnection(this);
         },
@@ -50,53 +54,47 @@ app.put('/card/:id', function(req, res) {
                 console.log(err)
                 throw new Error
             }
-            connection.query('update tcard SET ? where cid = ?', [req.body, req.params.id], this)
+            query.call(this, connection)
         },
-        function done(err) {
+        function queryDone(err, result) {
             if (err) {
                 console.log(err)
                 throw new Error
             }
+            onResult.call(this, result)
+        }
+    ]
+    Step.apply(null, funs.concat(Array.prototype.slice.call(arguments, 2)))
+}
+
+app.put('/card/:id', function(req, res) {
+    stepCon(
+        function query(connection) {
+            connection.query('update tcard SET ? where cid = ?', [req.body, req.params.id], this)
+        },
+        function done() {
             res.send({status: 'ok'})
         }
     )
 })
 
 app.get('/sheets/all', function(req, res) {
-    Step(
-        function openConn() {
-            pool.getConnection(this);
+    stepCon(
+        function query(connection) {
+            connection.query('select * from tsheet', this)
         },
-        function withConn(err, connection) {
-            if (err) {
-                console.log(err)
-                throw new Error
-            }
-            connection.query('select * from tsheet', function(err, rows) {
-                res.render('sheetList', {json: JSON.stringify(rows)})
-            })
+        function done(rows) {
+            res.render('sheetList', {json: JSON.stringify(rows)})
         }
     )
-})         
-
+})
 
 app.get('/sheets/:id', function(req, res) {
-    Step(
-        function openConn() {
-            pool.getConnection(this);
-        },
-        function withConn(err, connection) {
-            if (err) {
-                console.log(err)
-                return
-            }
+    stepCon(
+        function query(connection) {
             connection.query('select * from tcard where csheet = ?', req.params.id, this);
         },
-        function rows(err, rows) {
-            if (err) {
-                console.log(err)
-                return
-            }
+        function result(rows) {
             res.render('sheetItem', {json: JSON.stringify(rows)})
         }
     )
