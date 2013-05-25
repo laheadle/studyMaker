@@ -39,11 +39,30 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
+// Main javascript programs are served from here.
+// This allows us to have one requirejs config for all html pages.
+// xxx Unfortunately this may interfere with the requirejs optimizer
+// and impede one-page deployment.
+app.get('/mains/:id', function(req, res) {
+    Step(
+        function(){
+            fs.readFile('./views/mains/'+req.params.id, this)
+        },
+        function(err, program){
+            if (err) {
+                console.log(err)
+                throw new Error
+            }
+            res.set('content-type', 'text/javascript')
+            res.render('main', {program: program})
+        }
+    )
+})
 
-// Abstracts the connection pooling and error handling which all the
-// requests are doing.  'query' is called once the connection is
+// This abstracts the connection pooling and error handling which all
+// the requests are doing.  'query' is called once the connection is
 // received. 'onResult' is called when the query has returned.
-// Additional arguments are run afterwards via Step.
+// Additional arguments are run afterwards.
 function stepCon(query, onResult) {
     var funs = [
         function openConn() {
