@@ -42,8 +42,8 @@ app.configure('production', function(){
 
 // Abstracts the connection pooling and error handling which all the
 // requests are doing.  'query' is called once the connection is
-// received. 'onResult' is called when the query has returned
-// additional arguments are run afterwards via Step
+// received. 'onResult' is called when the query has returned.
+// Additional arguments are run afterwards via Step.
 function stepCon(query, onResult) {
     var funs = [
         function openConn() {
