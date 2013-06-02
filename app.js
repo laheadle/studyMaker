@@ -28,7 +28,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
-  app.use(express.static(path.join(__dirname, './www-built')));
+  app.use(express.static(path.join(__dirname, './www')));
 });
 
 app.configure('development', function(){
