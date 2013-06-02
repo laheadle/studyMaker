@@ -7,13 +7,8 @@ var createCard =
     "create table tcard (cid integer auto_increment primary key,  cquestion text not null, canswer text not null, "+
     "cdifficulty integer not null, cshow varchar(1) not null, ccolor varchar(32) not null, csheet integer not null references tsheet)"
 
-
-var pool  = mysql.createPool({
-    host     : 'localhost',
-    user     : 'root',
-    password : '1234',
-    database: 'study'
-});
+var db = JSON.parse(fs.readFileSync('../config.json')).db
+var pool  = mysql.createPool(db);
 
 pool.getConnection(function(err, connection) {
     connection.query(createSheet, function(err, rows) {

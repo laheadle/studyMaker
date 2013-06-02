@@ -10,12 +10,9 @@ var express = require('express')
 , Step = require('step')
 , mysql = require('mysql')
 
-var pool  = mysql.createPool({
-    host     : 'localhost',
-    user     : 'root',
-    password : '1234',
-    database: 'study'
-});
+var config = JSON.parse(fs.readFileSync('./config.json'))
+
+var pool  = mysql.createPool(config.db);
 
 var app = express();
 
