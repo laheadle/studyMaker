@@ -3,7 +3,12 @@
 <head>
 <link type="text/css" href="/css/t.css" rel="stylesheet"></link>
 
-<script data-main="/mains/sheetItemMain.js" src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.5/require.min.js"></script>
+<script src="/js/lib/require.min.js"></script>
+<script>
+require(['../js/common.js'], function(common) {
+  require(['sheetItemMain'])
+})
+</script>
 
 <script id="questions" type="text/json">
 <%- json %>
