@@ -1,11 +1,26 @@
-var child = require('child_process'),
-fs = require('fs')
+define
+(['fs', 
+  'stepCon', 
+  'mysql'],
 
-var db = JSON.parse(fs.readFileSync('../config.json')).db
+ function (fs,   stepCon, mysql) {
+     return function(db){
+         var database = db.database
+         delete db.database
 
-var drop = 'mysqladmin --user='+db.user+' --password='+db.password+' drop '+ db.database
-var create = 'mysqladmin --user='+db.user+' --password='+db.password+' create '+ db.database
-
-child.exec(drop)
-child.exec(create)
-
+         var pool  = mysql.createPool(db);
+         var conn = null
+         stepCon(
+             pool,
+             function drop(connection) {
+                 conn = connection
+                 conn.query('drop database if exists ??', [database], this)
+             },
+             function create() {
+                 conn.query('create database ??', [database], this)
+             },
+             function() { process.exit(0) }
+         )
+     }
+ }
+);
