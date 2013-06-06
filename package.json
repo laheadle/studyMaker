@@ -1,0 +1,15 @@
+{
+    "name": "studyMaker",
+    "description": "A flashcard tool",
+    "dependencies": {
+        "step": "0.x.x",
+        "requirejs": "2.x.x",
+        "ejs": "0.x.x",
+        "async": "0.x.x",
+        "mysql": "2.x.x",
+        "express": "3.x.x",
+        "grunt": "0.4.x",
+        "underscore": "1.x.x"
+    },
+    "engine": "node >= 0.8.1"
+}
