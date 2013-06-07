@@ -1,13 +1,11 @@
 define
-(['fs', 
-  'stepCon', 
+(['stepCon', 
   'mysql'],
 
- function (fs,   stepCon, mysql) {
-     return function(db){
+ function (stepCon, mysql) {
+     return function(db, callb){
          var database = db.database
          delete db.database
-
          var pool  = mysql.createPool(db);
          var conn = null
          stepCon(
@@ -19,7 +17,10 @@ define
              function create() {
                  conn.query('create database ??', [database], this)
              },
-             function() { process.exit(0) }
+             function() { 
+                 db.database = database
+                 callb() 
+             }
          )
      }
  }

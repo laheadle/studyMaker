@@ -10,7 +10,7 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         test: {
-            dbConfig: grunt.file.readJSON('./config.json')
+            dbConfig: grunt.file.readJSON('./config.json').db
         }
     });
 
@@ -21,8 +21,7 @@ module.exports = function(grunt) {
             'createDB'
         ],
          function (createDB) {
-             createDB(grunt.config('test.dbConfig'))
-             done()
+             createDB(grunt.config('test.dbConfig'), done)
          })
     })
 }
