@@ -1,6 +1,9 @@
 
 #Install
 
+## cd to this package's root directory
+cd studyMaker
+
 ## install node subpackages
 npm install
 
