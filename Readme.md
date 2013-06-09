@@ -21,7 +21,7 @@ grunt createDev
 
 ## import a deck from a text file
 
-grunt importDeck
+grunt importDeck --from=reformation
 
 ## start webserver
 grunt dev

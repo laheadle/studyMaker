@@ -75,7 +75,7 @@ module.exports = function(grunt) {
                  },
                  function(err, pool) {
                      if (err) throw err
-                     importDeck(pool, 'reformation', done)
+                     importDeck(pool, grunt.option('from') || 'reformation', done)
                  }
              )
          })

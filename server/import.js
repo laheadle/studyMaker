@@ -11,7 +11,8 @@ define(
         , mysql = require("mysql")
         , fs = require("fs")
 
-        return function(pool, name, callb) {
+        return function(pool, from, callb) {
+            if(!from) throw new Error("import what?")
 
             var cards = []
 
@@ -38,7 +39,7 @@ define(
 
             Step(
                 function openFile() {
-                    fs.readFile('./sheets/'+name +'.txt', 'utf8', this)
+                    fs.readFile('./sheets/'+from +'.txt', 'utf8', this)
                 },
                 function readFile(err, txt) {
                     if (err) {
@@ -56,7 +57,7 @@ define(
                         throw new Error
                     }
                     connection = c
-                    connection.query('insert into tsheet (cname) values(?)', name, this);
+                    connection.query('insert into tsheet (cname) values(?)', from, this);
                 },
                 function insertAll(err, result) {
                     if (err) {
