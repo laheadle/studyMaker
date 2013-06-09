@@ -9,19 +9,34 @@ module.exports = function(grunt) {
     // end requirejs boilerplate
 
     grunt.initConfig({
-        test: {
-            dbConfig: grunt.file.readJSON('./config.json').db
+        dev: {
+            config: grunt.file.readJSON('./config-dev.json')
         }
     });
 
-    grunt.task.registerTask('test', 'Run the test suite', function() {
+    grunt.task.registerTask('dev', 'start the dev server', function() {
         var done = this.async();
         requirejs
         ([
-            'createDB'
+            'step',
+            'createPool',
+            'start'
         ],
-         function (createDB) {
-             createDB(grunt.config('test.dbConfig'), done)
+         function (step,
+                   createPool,
+                   startServer) {
+             var conf = grunt.config('dev.config')
+             ,dbConf = conf.db
+             ,serverConf = conf.server
+             step(
+                 function() {
+                     createPool(dbConf, this)
+                 },
+                 function(err, pool) {
+                     if (err) {console.log(err); throw err}
+                     startServer(pool, serverConf, this)
+                 }
+             )
          })
     })
 }
