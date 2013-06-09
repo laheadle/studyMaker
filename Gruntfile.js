@@ -14,8 +14,72 @@ module.exports = function(grunt) {
         },
         dev: {
             config: grunt.file.readJSON('./config-dev.json')
+        },
+        createDev: {
+            config: grunt.file.readJSON('./config-dev.json')
+        },
+        importDeck: {
+            config: grunt.file.readJSON('./config-dev.json')
         }
     });
+
+    grunt.task.registerTask('createDev', 'Create the dev database', function() {
+        var done = this.async();
+        requirejs
+        ([
+            'createDB',
+            'createTables',
+            'step'
+        ],
+         function (createDB, 
+                   createTables,
+                   step) {
+             var conf = grunt.config('createDev.config')
+             ,dbConf = conf.db
+             ,serverConf = conf.server
+             ,pool = null
+             step(
+                 function() {
+                     createDB(dbConf, this)
+                 },
+                 function(err) {
+                     if (err) throw err
+                     createTables(dbConf, this)
+                 },
+                 function(err) {
+                     if (err) { console.log(err); throw err }
+                     done()
+                 }
+             )
+         })
+    })
+
+    grunt.task.registerTask('importDeck', 'import a deck into a database', function() {
+        var done = this.async();
+        requirejs
+        ([
+            'createPool',
+            'import',
+            'step'
+        ],
+         function (createPool,
+                   importDeck,
+                   step) {
+             var conf = grunt.config('importDeck.config')
+             ,dbConf = conf.db
+             ,serverConf = conf.server
+             ,pool = null
+             step(
+                 function() {
+                     createPool(dbConf, this)
+                 },
+                 function(err, pool) {
+                     if (err) throw err
+                     importDeck(pool, 'reformation', done)
+                 }
+             )
+         })
+    })
 
     grunt.task.registerTask('dev', 'start the dev server', function() {
         var done = this.async();

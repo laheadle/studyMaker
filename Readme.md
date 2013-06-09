@@ -1,29 +1,27 @@
 
 #Install
 
-install mysql and maybe delete script/my.ini
+## install node subpackages
+npm install
 
-there are some node modules required, so do npm install when something breaks
+##install mysql 
+[do whatever for your platform]
+maybe delete script/my.ini
 
-## create database and tables
+## create dev database and tables
 
-cp example-config.json config.json
+cp example-config.json config-dev.json
 
-[edit config.json]
+[edit config-dev.json]
 
-cd script
+grunt createDev
 
-sh create-db.sh
+## import a deck from a text file
 
-node create-tables
-
-## create a deck
-cd ..
-
-node sm reformation
+grunt importDeck
 
 ## start webserver
-node app
+grunt dev
 
 ## visit
-http://localhost:3000/sheets/all
+http://[yourdomain]:[yourport]/sheets/all
