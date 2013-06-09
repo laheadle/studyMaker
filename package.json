@@ -9,9 +9,7 @@
         "mysql": "2.x.x",
         "express": "3.x.x",
         "grunt": "0.4.x",
-        "underscore": "1.x.x"
-    },
-    "devDependencies": {
+        "underscore": "1.x.x",
         "open": "0.x.x"
     },
     "engine": "node >= 0.8.1"
