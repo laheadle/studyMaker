@@ -87,11 +87,13 @@ module.exports = function(grunt) {
         ([
             'step',
             'createPool',
-            'start'
+            'start',
+            'open'
         ],
          function (step,
                    createPool,
-                   startServer) {
+                   startServer,
+                   open) {
              var conf = grunt.config('dev.config')
              ,dbConf = conf.db
              ,serverConf = conf.server
@@ -102,6 +104,10 @@ module.exports = function(grunt) {
                  function(err, pool) {
                      if (err) {console.log(err); throw err}
                      startServer(pool, serverConf, this)
+                 },
+                 function(err) {
+                     if (err) throw err
+                     open('http://'+serverConf.host+':'+serverConf.port+'/sheets/all')
                  }
              )
          })
