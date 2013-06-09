@@ -1,6 +1,9 @@
 
 #Install
 
+## install grunt
+sudo npm install -g grunt-cli
+
 ## cd to this package's root directory
 cd studyMaker
 
@@ -16,6 +19,8 @@ maybe delete script/my.ini
 cp example-config.json config-dev.json
 
 [edit config-dev.json]
+
+cp example-config.json config-test.json
 
 grunt createDev
 
