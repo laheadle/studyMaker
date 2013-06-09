@@ -1,17 +1,22 @@
 require(['underscore', 'backbone', 'jquery', 
-         'cardview', 'message', 'sheet', 'messageView', 'app'], 
-        function (_, Backbone, $, CardView, Message, Sheet) {
+         'cardview', 'message', 'cards', 'messageView', 'app'], 
+        function (_, Backbone, $, CardView, Message, Cards) {
 
-            Sheet.reset(JSON.parse($('#questions').text()))
+            // Initialize the collection of cards from inline json data.
+            Cards.reset(JSON.parse($('#questions').text()))
 
+            // Fade in nicely.
             $('body').animate({'opacity': 1}, 300)
 
+            // Swap questions and answers if the body is clicked.
             $(document).click(function(event) {
                 if ($(event.target)[0].nodeName === "HTML" || $(event.target)[0].nodeName === "BODY") {
-                    Sheet.swapAll()
+                    Cards.swapAll()
                 }
             })
 
+            // Show a usage instruction if they're not hovering on
+            // anything in particular.
             $('html').mouseover(function(event) { 
                 if (event.target.nodeName === 'BODY' || event.target.nodeName === 'HTML') {
                     $('.question.selected').removeClass('selected')

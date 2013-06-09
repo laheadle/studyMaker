@@ -38,26 +38,6 @@ define(
                 app.use(express.errorHandler()); 
             });
 
-            // Main javascript programs are served from here.
-            // This allows us to have one requirejs config for all html pages.
-            // xxx Unfortunately this may interfere with the requirejs optimizer
-            // and impede one-page deployment.
-            app.get('/mains/:id', function(req, res) {
-                Step(
-                    function(){
-                        fs.readFile('./views/mains/'+req.params.id, this)
-                    },
-                    function(err, program){
-                        if (err) {
-                            console.log(err)
-                            throw new Error
-                        }
-                        res.set('content-type', 'text/javascript')
-                        res.render('main', {program: program})
-                    }
-                )
-            })
-
             app.put('/card/:id', function(req, res) {
                 stepCon(
                     pool,

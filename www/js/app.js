@@ -1,14 +1,14 @@
 
 
-define(['underscore', 'backbone', 'jquery', 'sheet', 'cardview', 'state', 'difficultyView'], 
-       function (_, Backbone, $, Sheet, CardView, State, DifficultyView) {
+define(['underscore', 'backbone', 'jquery', 'cards', 'cardview', 'state', 'difficultyView'], 
+       function (_, Backbone, $, Cards, CardView, State, DifficultyView) {
 
     var App = new (Backbone.View.extend({
 
         el: $("#content"),
 
         initialize: function() {
-            this.listenTo(Sheet, 'reset', this.addAll);
+            this.listenTo(Cards, 'reset', this.addAll);
             var difficulty = new DifficultyView;
             this.$el.append(difficulty.render().el);
         },
@@ -19,7 +19,7 @@ define(['underscore', 'backbone', 'jquery', 'sheet', 'cardview', 'state', 'diffi
         },
 
         addAll: function() {
-            Sheet.each(this.addOne, this);
+            Cards.each(this.addOne, this);
         }
     }))({model: State}) // xxx this is not referenced here...
 
