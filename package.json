@@ -11,5 +11,8 @@
         "grunt": "0.4.x",
         "underscore": "1.x.x"
     },
+    "devDependencies": {
+        "open": "0.x.x"
+    },
     "engine": "node >= 0.8.1"
 }

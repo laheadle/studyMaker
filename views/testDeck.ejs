@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+<link type="text/css" href="/css/t.css" rel="stylesheet"></link>
+
+<script src="/js/lib/require.min.js"></script>
+<script>
+require(['../js/common.js'], function(common) {
+  require(['testDeck'])
+})
+</script>
+
+<script id="questions" type="text/json">
+<%- json %>
+</script>
+
+</head>
+<body>
+<div id="message">Let the learning begin.</div>
+<div id="content">
+</div>
+</body>
+</html>
