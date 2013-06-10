@@ -2,8 +2,7 @@
 
 define(['underscore', 'backbone', 'jquery', 'message'], function (_, Backbone, $, Message) {
 
-    var MessageView = new (Backbone.View.extend({
-        el: $('#message'),
+    return Backbone.View.extend({
         template: _.template('<%= msg %>'),
         initialize: function() {
             this.listenTo(this.model, 'change', this.render)
@@ -11,8 +10,7 @@ define(['underscore', 'backbone', 'jquery', 'message'], function (_, Backbone, $
         render: function() {
             this.$el.html(this.template(this.model.toJSON()));
             return this;
-        },
-    }))({model: Message}) 
+        }
+    })
 
-    return MessageView
 })
