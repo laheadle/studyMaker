@@ -7,7 +7,7 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs', 'st
         template: _.template(cardTemplate),
         className: "pair",
         events: {
-            "mouseenter"   : "reveal",
+            "mouseover"   : "reveal",
 
             "click .increment" : function() {
                 this.setDifficulty(function(d){ return d + 1 })
@@ -55,6 +55,7 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs', 'st
             Message.set('msg', this.model.get('canswer'))
             $('.question.selected').removeClass('selected')
             this.$('.question').addClass('selected')
+            return false
         },
 
         google: function(event) {
@@ -69,7 +70,7 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs', 'st
             var win=window.open(url, '_blank');
             win.blur();
             win.focus();
-
+            return false
         }
     }) 
 

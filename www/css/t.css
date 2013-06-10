@@ -26,7 +26,7 @@
 .color4 { background-color: #9c5708; }
 .color5 { background-color: #00467f; }
 
-body { opacity: 0; font-family: Arial; padding: 30px; height: 2000px; }
+.content { opacity: 0; font-family: Arial; height: 2000px; }
 
 .answer, .question { float: left; }
 
@@ -57,7 +57,7 @@ a { text-decoration: none; }
            max-height: 40px; overflow: auto;
 }
 
-#content { margin-top: 55px; padding-left: 20px; }
+.contentInner { margin-top: 55px; padding: 30px 30px 0 55px; }
 
 .selected .delete { visibility: visible; }
 .pair .selected .decrement, .pair .selected .increment { visibility: visible; }
