@@ -6,10 +6,9 @@ define([
     'jquery',
     'cards',
     'cardview',
-    'state',
     'difficultyView',
     'message'],
-       function (_, Backbone, $, Cards, CardView, State, DifficultyView, Message) {
+       function (_, Backbone, $, Cards, CardView, DifficultyView, Message) {
 
     return Backbone.View.extend({
 
