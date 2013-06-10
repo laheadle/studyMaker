@@ -1,14 +1,14 @@
 
 
-define(['underscore', 'backbone', 'jquery', 'sheetList', 'sheetView'], 
-       function (_, Backbone, $, SheetList, SheetView) {
+define(['underscore', 'backbone', 'jquery', 'sheets', 'sheetView'], 
+       function (_, Backbone, $, Sheets, SheetView) {
 
            var App = new (Backbone.View.extend({
 
                el: $("#content"),
 
                initialize: function() {
-                   this.listenTo(SheetList, 'reset', this.addAll);
+                   this.listenTo(Sheets, 'reset', this.addAll);
                },
 
                addOne: function(card) {
@@ -17,7 +17,7 @@ define(['underscore', 'backbone', 'jquery', 'sheetList', 'sheetView'],
                },
 
                addAll: function() {
-                   SheetList.each(this.addOne, this);
+                   Sheets.each(this.addOne, this);
                }
            }))()
 

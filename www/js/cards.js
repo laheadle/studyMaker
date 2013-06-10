@@ -2,7 +2,7 @@
 
 define(['underscore', 'backbone', 'jquery', 'card'], function (_, Backbone, $, Card) {
 
-    var Sheet = new (Backbone.Collection.extend({
+    var Cards = new (Backbone.Collection.extend({
         model: Card,
 
         swapAll: function () {
@@ -13,5 +13,5 @@ define(['underscore', 'backbone', 'jquery', 'card'], function (_, Backbone, $, C
 
     }))
 
-    return Sheet
+    return Cards
 })

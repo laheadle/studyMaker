@@ -1,5 +1,5 @@
 require(['underscore', 'backbone', 'jquery', 
-         'cardview', 'message', 'cards', 'messageView', 'app'], 
+         'cardview', 'message', 'cards', 'messageView', 'cardsApp'], 
         function (_, Backbone, $, CardView, Message, Cards) {
 
             // Initialize the collection of cards from inline json data.

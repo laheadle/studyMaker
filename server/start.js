@@ -57,7 +57,7 @@ define(
                         connection.query('select * from tsheet', this)
                     },
                     function done(rows) {
-                        res.render('sheetList', {json: JSON.stringify(rows)})
+                        res.render('sheets', {json: JSON.stringify(rows)})
                     }
                 )
             })
@@ -81,7 +81,7 @@ define(
                         connection.query('select * from tcard where csheet = ?', req.params.id, this);
                     },
                     function result(rows) {
-                        res.render('sheetItem', {json: JSON.stringify(rows)})
+                        res.render('cards', {json: JSON.stringify(rows)})
                     }
                 )
             })
