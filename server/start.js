@@ -69,7 +69,7 @@ define(
                         connection.query('select * from tcard where csheet = ?', 1, this);
                     },
                     function result(rows) {
-                        res.render('testDeck', {json: JSON.stringify(rows)})
+                        res.render('testSuite', {json: JSON.stringify(rows)})
                     }
                 )
             })
