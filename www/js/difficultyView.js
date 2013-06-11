@@ -41,6 +41,7 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/difficulty.ejs
                 this.increment()
                 break;
             }
+            return false;
         }
 
     }) 
