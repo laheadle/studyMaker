@@ -32,6 +32,8 @@ define([
 
         addOne: function(card) {
             var view = new CardView({model: card});
+            // Store a reference for convenience
+            view.model.view = view
             this.$el.find('.list').append(view.render().el);
         },
 

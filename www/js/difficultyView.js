@@ -4,6 +4,7 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/difficulty.ejs
     return Backbone.View.extend({
         template: _.template(template),
         tagName: "span",
+        className: "difficulty",
         events: {
             "click .increment" : "increment",
             "click .decrement" : "decrement",
