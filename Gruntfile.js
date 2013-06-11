@@ -20,8 +20,20 @@ module.exports = function(grunt) {
         },
         importDeck: {
             config: grunt.file.readJSON('./config-dev.json')
+        },
+
+        jshint: {
+            options: {
+                asi: true,
+                laxcomma: true,
+                laxbreak: true
+            },
+
+            all: ['Gruntfile.js', 'www/**/*.js', 'server/**/*.js']
         }
     });
+
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
     grunt.task.registerTask('createDev', 'Create the dev database', function() {
         var done = this.async();
@@ -134,6 +146,8 @@ module.exports = function(grunt) {
              ,dbConf = conf.db
              ,serverConf = conf.server
              ,pool = null
+             if (conf.server.port === grunt.config('dev.config').server.port) 
+                 grunt.fail.fatal("Test and dev configs should be different.")
              step(
                  function() {
                      createDB(dbConf, this)

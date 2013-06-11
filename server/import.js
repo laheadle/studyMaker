@@ -44,9 +44,9 @@ define(
                 function readFile(err, txt) {
                     if (err) {
                         console.log(err)
-                        throw new Error
+                        throw new Error()
                     }
-                    return cards = pairs(txt.split(/\r?\n/))
+                    cards = pairs(txt.split(/\r?\n/))
                 },
                 function openConn() {
                     pool.getConnection(this);
@@ -54,7 +54,7 @@ define(
                 function withConn(err, c) {
                     if (err) {
                         console.log(err)
-                        throw new Error
+                        throw new Error()
                     }
                     connection = c
                     connection.query('insert into tsheet (cname) values(?)', from, this);
@@ -62,7 +62,7 @@ define(
                 function insertAll(err, result) {
                     if (err) {
                         console.log(err)
-                        throw new Error
+                        throw new Error()
                     }
                     var that = this;
                     async.whilst(
@@ -84,7 +84,7 @@ define(
                         function (err) { 
                             if (err) {
                                 console.log(err)
-                                throw new Error
+                                throw new Error()
                             }
                             that(null)
                         }

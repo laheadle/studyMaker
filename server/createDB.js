@@ -4,7 +4,7 @@ define
 
  function (stepCon, mysql) {
      return function(db, callb){
-         var database = db.database
+         var database = db.database;
          delete db.database
          var pool  = mysql.createPool(db);
          var conn = null

@@ -10,7 +10,8 @@
     "express": "3.x.x",
     "grunt": "0.4.x",
     "underscore": "1.x.x",
-    "open": "0.x.x"
+    "open": "0.x.x",
+    "grunt-contrib-jshint": "0.x.x"
   },
   "engine": "node >= 0.8.1",
   "version": "0.0.1"
