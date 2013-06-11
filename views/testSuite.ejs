@@ -2,11 +2,12 @@
 <html>
 <head>
 <link type="text/css" href="/css/t.css" rel="stylesheet"></link>
+<link type="text/css" href="/css/jasmine.css" rel="stylesheet"></link>
 
 <script src="/js/lib/require.min.js"></script>
 <script>
 require(['../js/common.js'], function(common) {
-  require(['testDeck'])
+  require(['testSuite])
 })
 </script>
 
@@ -16,8 +17,6 @@ require(['../js/common.js'], function(common) {
 
 </head>
 <body>
-<div id="message">Let the learning begin.</div>
-<div id="content">
-</div>
-</body>
-</html>
+<div id="sandbox" style="overflow: hidden; height: 1px;"></div>
+</body></html>
+

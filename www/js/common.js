@@ -17,6 +17,14 @@ require.config({
         },
         jquery: {
             exports: '$'
+        },
+        // Thanks: http://kilon.org/blog/2012/08/testing-backbone-requirejs-applications-with-jasmine/
+        'lib/jasmine': {
+            exports: 'jasmine'
+        },
+        'lib/jasmine-html': {
+            deps: ['lib/jasmine'],
+            exports: 'jasmine'
         }
     }
 });
