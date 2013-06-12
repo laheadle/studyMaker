@@ -1,7 +1,7 @@
 
-define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/sheetLink.ejs'], 
+define(['underscore', 'backbone', 'jquery', 'text!tmpl/sheetLink.ejs'], 
 
-       function (_, Backbone, $, Message, template) {
+       function (_, Backbone, $, template) {
 
     var View = Backbone.View.extend({
         template: _.template(template),

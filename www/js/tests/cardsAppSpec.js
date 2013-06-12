@@ -1,6 +1,9 @@
 define
-(['jquery', 'cards', 'messageView', 'cardsApp', 'text!tmpl/cardsApp.html'], 
- function ($, Cards, MessageView, CardsApp, tmpl) {
+(['jquery', 'cards', 'messageView', 
+  'cardsApp',
+  'state',
+  'text!tmpl/cardsApp.html'], 
+ function ($, Cards, MessageView, CardsApp, State, tmpl) {
 
 
      return describe('Cards App', function() {
@@ -15,7 +18,7 @@ define
 
              // Initialize the collection of cards from inline json data.
              Cards.reset(JSON.parse($('#questions').text()))
-
+             State.initialize()
          });
 
 
@@ -44,6 +47,11 @@ define
              expect(card.get('cdifficulty')).toEqual(5)
              this.cardsApp.$el.find('.difficulty').trigger({type: 'keyup', keyCode:37})
              expect(card.view.$el.hasClass('hidden')).toBe(false)
+         });
+
+         it('should display messages', function() {
+             State.set('msg', 'message1')
+             expect(this.messageView.$el.text()).toBe('message1')
          });
 
 

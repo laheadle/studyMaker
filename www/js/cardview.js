@@ -1,7 +1,7 @@
 
-define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs', 'state'], 
+define(['underscore', 'backbone', 'jquery', 'text!tmpl/card.ejs', 'state'], 
 
-       function (_, Backbone, $, Message, cardTemplate, State) {
+       function (_, Backbone, $, cardTemplate, State) {
 
     var CardView = Backbone.View.extend({
         template: _.template(cardTemplate),
@@ -52,7 +52,7 @@ define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/card.ejs', 'st
         },
 
         reveal: function() {
-            Message.set('msg', this.model.get('canswer'))
+            State.set('msg', this.model.get('canswer'))
             $('.question.selected').removeClass('selected')
             this.$('.question').addClass('selected')
             return false

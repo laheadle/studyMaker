@@ -1,15 +1,15 @@
 
 
-define(['underscore', 'backbone', 'message'], function (_, Backbone, Message) {
+define(['underscore', 'backbone', 'state'], function (_, Backbone, State) {
 
     return Backbone.View.extend({
         template: _.template('<%= msg %>'),
+        className: "message",
         initialize: function() {
-            this.model = Message
-            this.listenTo(this.model, 'change', this.render)
+            this.listenTo(State, 'change', this.render)
         },
         render: function() {
-            this.$el.html(this.template(this.model.toJSON()));
+            this.$el.html(this.template(State.toJSON()));
             return this;
         }
     })

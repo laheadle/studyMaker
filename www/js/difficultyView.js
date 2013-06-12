@@ -1,5 +1,8 @@
 
-define(['underscore', 'backbone', 'jquery', 'message', 'text!tmpl/difficulty.ejs', 'state'], function (_, Backbone, $, Message, template, State) {
+define
+(['underscore', 'backbone', 'jquery', 
+  'text!tmpl/difficulty.ejs', 'state'], 
+ function (_, Backbone, $, template, State) {
 
     return Backbone.View.extend({
         template: _.template(template),

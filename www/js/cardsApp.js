@@ -7,8 +7,8 @@ define([
     'cards',
     'cardview',
     'difficultyView',
-    'message'],
-       function (_, Backbone, $, Cards, CardView, DifficultyView, Message) {
+    'state'],
+       function (_, Backbone, $, Cards, CardView, DifficultyView, State) {
 
     return Backbone.View.extend({
 
@@ -20,7 +20,7 @@ define([
             // anything in particular.
             "mouseover": function() {
                 this.$el.find('.question.selected').removeClass('selected')
-                Message.setDefault()
+                State.setDefaultMessage()
             },
         },
 
