@@ -42,10 +42,10 @@ define
 
          it('should set global difficulty with a key press', function() {
              var card = Cards.at(0)
-             this.cardsApp.$el.find('.difficulty').trigger({type: 'keyup', keyCode:39})
+             $('body').trigger({type: 'keyup', keyCode:39})
              expect(card.view.$el.hasClass('hidden')).toBe(true)
              expect(card.get('cdifficulty')).toEqual(5)
-             this.cardsApp.$el.find('.difficulty').trigger({type: 'keyup', keyCode:37})
+             $('body').trigger({type: 'keyup', keyCode:37})
              expect(card.view.$el.hasClass('hidden')).toBe(false)
          });
 

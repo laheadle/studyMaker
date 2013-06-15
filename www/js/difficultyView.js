@@ -10,8 +10,7 @@ define
         className: "difficulty",
         events: {
             "click .increment" : "increment",
-            "click .decrement" : "decrement",
-            'keyup': 'doKey',
+            "click .decrement" : "decrement"
         },
 
         initialize: function() {
