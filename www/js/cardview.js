@@ -19,7 +19,7 @@ define(['underscore', 'backbone', 'jquery', 'text!tmpl/card.ejs', 'state'],
                 return false
             },
 
-            "click .question" : "google"
+            "click .visibleFace" : "google"
         },
 
         setDifficulty: function(fun) {
@@ -53,8 +53,8 @@ define(['underscore', 'backbone', 'jquery', 'text!tmpl/card.ejs', 'state'],
 
         reveal: function() {
             State.set('msg', this.model.get('canswer'))
-            $('.question.selected').removeClass('selected')
-            this.$('.question').addClass('selected')
+            $('.visibleFace.selected').removeClass('selected')
+            this.$('.visibleFace').addClass('selected')
             return false
         },
 

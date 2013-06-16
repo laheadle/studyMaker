@@ -8,9 +8,7 @@ define(['underscore', 'backbone', 'jquery'], function (_, Backbone, $) {
         idAttribute: 'cid',
 
         swap: function() { 
-            var q = this.get('cquestion')
-            this.set('cquestion', this.get('canswer'))
-            this.set('canswer', q)
+            this.set('cshow', this.get('cshow') === 'q' ? 'a' : 'q')
         }
     })
 

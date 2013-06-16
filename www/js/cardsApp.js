@@ -19,7 +19,7 @@ define([
             // Show a usage instruction if they're not hovering on
             // anything in particular.
             "mouseover": function() {
-                this.$el.find('.question.selected').removeClass('selected')
+                this.$el.find('.visibleFace.selected').removeClass('selected')
                 State.setDefaultMessage()
             },
         },

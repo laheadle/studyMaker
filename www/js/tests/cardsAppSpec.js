@@ -40,6 +40,13 @@ define
              expect(card.view.$el.hasClass('hidden')).toBe(false)
          });
 
+         it('should swap question and answer when asked', function() {
+             var card = Cards.at(0)
+             expect(card.view.$el.find('.textContent').text()).toEqual('question1')
+             card.swap()
+             expect(card.view.$el.find('.textContent').text()).toEqual('answer1')
+         });
+
          it('should set global difficulty with a key press', function() {
              var card = Cards.at(0)
              $('body').trigger({type: 'keyup', keyCode:39})

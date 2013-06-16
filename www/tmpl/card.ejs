@@ -1,8 +1,8 @@
-  <div class="question <%= ccolor %>">
+  <div class="visibleFace <%= ccolor %>">
     <button class="decrement">-</button>
     <button class="increment">+</button>
-    <%- cquestion %>
+    <span class="textContent"><%- cshow == 'q' ? cquestion : canswer %></span>
   </div>
-  <div class="answer <%= cshow == 'q' ? 'show' : 'hide'%>">
-    <%- canswer %>
+  <div class="invisibleFace">
+    <%- cshow == 'q' ? canswer : cquestion %>
   </div>

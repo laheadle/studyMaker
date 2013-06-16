@@ -28,13 +28,13 @@
 
 .content { opacity: 0; font-family: Arial; height: 2000px; }
 
-.answer, .question { float: left; }
+.invisibleFace, .visibleFace { float: left; }
 
 .difficultyLevel { font-weight: bold }
 
-.answer{ display: none; font-weight: bold; }
+.invisibleFace{ display: none; font-weight: bold; }
 
-.question { 
+.visibleFace { 
     position: relative; 
     cursor: pointer; 
     color: white; 
