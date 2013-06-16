@@ -125,6 +125,12 @@ module.exports = function(grunt) {
          })
     })
 
+    // Set up test data and run the test suite. You can pass the
+    // option --no-run if you don't want this to actually open a
+    // browser window to run the tests. This enables a debugging
+    // technique: Fist you set a breakpoint in your browser, then run
+    // grunt test to initialize data, then reload your test page
+    // yourself, which pauses in the debugger.
     grunt.task.registerTask('test', 'Run the test suite', function() {
         var done = this.async();
         requirejs
@@ -167,11 +173,9 @@ module.exports = function(grunt) {
                  },
                  function(err) {
                      if (err) throw err
-                     runTests(serverConf, this)
-                 },
-                 function(err) {
-                     if (err) { console.log(err); throw err }
-                     done()
+                     if(!grunt.option('no-run')) {
+                         runTests(serverConf, done)
+                     }
                  }
              )
          })
