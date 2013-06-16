@@ -42,28 +42,20 @@ define(
                     fs.readFile('./sheets/'+from +'.txt', 'utf8', this)
                 },
                 function readFile(err, txt) {
-                    if (err) {
-                        console.log(err)
-                        throw new Error()
-                    }
-                    cards = pairs(txt.split(/\r?\n/))
+                    if (err) { throw err }
+                    return cards = pairs(txt.split(/\r?\n/))
                 },
-                function openConn() {
+                function openConn(err) {
+                    if (err) { throw err }
                     pool.getConnection(this);
                 },
                 function withConn(err, c) {
-                    if (err) {
-                        console.log(err)
-                        throw new Error()
-                    }
+                    if (err) { throw err }
                     connection = c
                     connection.query('insert into tsheet (cname) values(?)', from, this);
                 },
                 function insertAll(err, result) {
-                    if (err) {
-                        console.log(err)
-                        throw new Error()
-                    }
+                    if (err) { throw err }
                     var that = this;
                     async.whilst(
                         function() { return cards.length > 0 },
@@ -82,16 +74,13 @@ define(
                             })
                         },
                         function (err) { 
-                            if (err) {
-                                console.log(err)
-                                throw new Error()
-                            }
+                            if (err) { throw err }
                             that(null)
                         }
                     )
                 },
-                function () {
-                    callb(null)
+                function (err) {
+                    callb(err)
                 }
             )
         }
