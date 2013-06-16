@@ -33,3 +33,9 @@ grunt dev
 
 ## visit
 http://[yourdomain]:[yourport]/sheets/all
+
+## run tests
+
+[edit config-test.json to be a different db and port from dev]
+
+grunt test
