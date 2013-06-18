@@ -28,11 +28,7 @@
 
 .content { opacity: 0; font-family: Arial; height: 2000px; }
 
-.invisibleFace, .visibleFace { float: left; }
-
 .difficultyLevel { font-weight: bold }
-
-.invisibleFace{ display: none; font-weight: bold; }
 
 .visibleFace { 
     position: relative; 

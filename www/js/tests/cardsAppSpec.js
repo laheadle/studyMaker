@@ -61,8 +61,6 @@ define
              expect(this.messageView.$el.text()).toBe('message1')
          });
 
-
-
      })
  }
 )

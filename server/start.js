@@ -42,6 +42,8 @@ define(
                 stepCon(
                     pool,
                     function query(connection) {
+                        // Forget which side of the card is showing, as that can get out of sync.
+                        delete req.body.cshow
                         connection.query('update tcard SET ? where cid = ?', [req.body, req.params.id], this)
                     },
                     function done() {

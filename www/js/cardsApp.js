@@ -15,13 +15,6 @@ define([
         events: {
             // Swap questions and answers if the content area is clicked.
             "click": function() { Cards.swapAll() },
-
-            // Show a usage instruction if they're not hovering on
-            // anything in particular.
-            "mouseover": function() {
-                this.$el.find('.visibleFace.selected').removeClass('selected')
-                State.setDefaultMessage()
-            },
         },
 
         initialize: function() {
@@ -31,10 +24,17 @@ define([
         },
 
         addOne: function(card) {
-            var view = new CardView({model: card});
-            // Store a reference for convenience
-            view.model.view = view
-            this.$el.find('.list').append(view.render().el);
+            return new CardView(
+                {model: card}, 
+                // We pass ourselves in so the CardView can figure out
+                // its own best height by (briefly) attaching an
+                // element to our element.
+                {$parent: this}
+            ).render();
+        },
+
+        attach: function(cardView) {
+            this.$el.find('.list').append(cardView.$el)
         },
 
         addAll: function() {

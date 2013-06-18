@@ -6,7 +6,7 @@ define
      var sheet = {cname: 'sheet'}
 
      var cards = [{cquestion: 'question1', 
-                   canswer: 'answer1', 
+                   canswer: 'answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 ', 
                    cdifficulty: 5, 
                    cshow: 'q', 
                    ccolor: 'color1'}]
