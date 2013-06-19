@@ -1,15 +1,35 @@
 define
-(['stepCon'],
+(['stepCon', 'insertCards'],
 
- function (stepCon) {
+ function (stepCon, insertCards) {
 
      var sheet = {cname: 'sheet'}
 
-     var cards = [{cquestion: 'question1', 
-                   canswer: 'answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 ', 
-                   cdifficulty: 5, 
-                   cshow: 'q', 
-                   ccolor: 'color1'}]
+     var cards = [
+         {
+             cquestion: 'question1', 
+             canswer: 'answer1', 
+             cdifficulty: 5, 
+             cshow: 'q', 
+             ccolor: 'color1'
+         },
+
+         {
+             cquestion: 'short', 
+             canswer: 'answer',
+             cdifficulty: 5, 
+             cshow: 'q', 
+             ccolor: 'color1'
+         },
+
+         {
+             cquestion: 'tall', 
+             canswer: 'answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1 answer1', 
+             cdifficulty: 5, 
+             cshow: 'q', 
+             ccolor: 'color1'
+         }
+     ]
 
      return function(pool, callb){
          var conn = null
@@ -20,8 +40,7 @@ define
                  conn.query('insert into tsheet SET ?', sheet, this)
              },
              function (result) {
-                 cards[0].csheet = result.insertId
-                 conn.query('insert into tcard SET ?', cards[0], callb)
+                 insertCards(conn, cards, result.insertId, callb)
              }
          )
      }

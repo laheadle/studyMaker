@@ -10,6 +10,8 @@ define(
         , async = require("async")
         , mysql = require("mysql")
         , fs = require("fs")
+        , _ = require("underscore")
+        , insertCards = require("insertCards")
 
         return function(pool, from, callb) {
             if(!from) throw new Error("import what?")
@@ -31,6 +33,7 @@ define(
                 return retval
             }
 
+ 
             function getRandomInt (min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
@@ -56,31 +59,18 @@ define(
                 },
                 function insertAll(err, result) {
                     if (err) { throw err }
-                    var that = this;
-                    async.whilst(
-                        function() { return cards.length > 0 },
-                        function(callb) {
-                            var card = cards.shift()
-                            card = { 
-                                cquestion: card[0], 
-                                canswer: card[1],
-                                cdifficulty: 5,
-                                cshow: 'q', 
-                                ccolor: 'color'+getRandomInt(0, 5),
-                                csheet: result.insertId
-                            }
-                            connection.query('insert into tcard SET ?', card, function(err, result) {
-                                callb(err)
-                            })
-                        },
-                        function (err) { 
-                            if (err) { throw err }
-                            that(null)
+
+                    var cardObjs = _.map(cards, function(card) { 
+                        return { 
+                            cquestion: card[0], 
+                            canswer: card[1],
+                            cdifficulty: 5,
+                            cshow: 'q', 
+                            ccolor: 'color'+getRandomInt(0, 5),
                         }
-                    )
-                },
-                function (err) {
-                    callb(err)
+                    })
+
+                    insertCards(connection, cardObjs, result.insertId, callb)
                 }
             )
         }

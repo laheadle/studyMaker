@@ -11,7 +11,10 @@ require(['jquery', 'lib/jasmine-html'], function($, jasmine){
     return htmlReporter.specFilter(spec);
   };
  
-  var specs = ['tests/cardsAppSpec'];
+  var specs = [
+      'tests/cardsAppSpec'
+      ,'tests/domSpec'
+];
  
   $(function(){
     require(specs, function(){
