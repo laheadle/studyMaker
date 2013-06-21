@@ -19,7 +19,11 @@ define(['step'],
                     onResult.call(this, result)
                 }
             ]
-            Step.apply(null, funs.concat(Array.prototype.slice.call(arguments, 2)))
+            var end = function(err) {
+                conn.end()
+                if (err) throw err
+            }
+            Step.apply(null, funs.concat(Array.prototype.slice.call(arguments, 3), [end]))
         }
     }
 )
