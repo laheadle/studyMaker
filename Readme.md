@@ -34,8 +34,17 @@ grunt dev
 ## visit
 http://[yourdomain]:[yourport]/sheets/all
 
-## run tests
+## configure tests
 
 [edit config-test.json to be a different db and port from dev]
 
+### run browser tests 
+
 grunt test
+
+### run server tests
+
+npm install -g mocha
+
+mocha
+
