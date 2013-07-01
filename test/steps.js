@@ -7,54 +7,54 @@ requirejs.config({
 });
 // end requirejs boilerplate
 
+function testFourthArg(done){
+    requirejs
+    (['stepCon', 'assert', 'step', 'sinon'],
+     function (stepCon, assert, step, sinon) 
+     {
+         step(
+             function() {
+                 var that = this
+
+                 this.pool = { 
+                     getConnection: function(callb) { 
+                         var conn = { 
+                             end: sinon.stub()
+                         }
+                         callb(null, conn)
+                     }
+                 }
+                 
+                 this.query = sinon.spy(function () {
+                     this(null)
+                 })
+
+                 this.done = sinon.spy(function () {
+                     this(null)
+                 })
+
+                 this.last = sinon.spy(function(err) {
+                     if (err) { throw err }
+                     that(null)
+                 })
+
+                 stepCon(this.pool, this.query, this.done, this.last)
+             },
+             function(err) {
+                 if (err) { throw err }
+                 assert(this.query.calledOnce)
+                 assert(this.done.calledOnce)
+                 assert(this.last.calledOnce)
+                 done()
+             }
+         )
+     }
+    )
+}
+
 describe('Server tests', function(){
     describe('stepcon', function(){
-        it('should run fourth arg as a step function', function(done){
-            requirejs
-            (['createpool', 'stepCon', 'assert', 'step', 'fs'],
-             function (createpool, stepCon, assert, step, fs) 
-             {
-                 // add a fourth argument to stepcon and make sure it is run
-                 var wasRun = false;
-                 step(
-                     function(db) {
-                         fs.readFile('./config-test.json', 'utf8', this)
-                     },
-                     function(err, conf) {
-                         if (err) { throw err }
-                         createpool(JSON.parse(conf).db, this)
-                     },
-                     function(err, pool) {
-                         if (err) { throw err }
-                         var that = this
-                         stepCon(pool,
-                                 function query(connection) {
-                                     connection.query('select * from tsheet', this)
-                                 },
-                                 function done(rows) {
-                                     // only called once
-                                     assert(!this.already)
-                                     this.already = true
-                                     this(null)
-                                 },
-                                 function(err) {
-                                     if (err) { throw err }
-                                     // actually called
-                                     wasRun = true;
-                                     that(null)
-                                 }
-                                )
-                     },
-                     function(err) {
-                         if (err) { throw err }
-                         assert(wasRun)
-                         done()
-                     }
-                 )
-             }
-            )
-        })
-
+        it('should run fourth arg as a step function', testFourthArg)
     })
 })
 
