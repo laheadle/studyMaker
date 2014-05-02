@@ -25,7 +25,7 @@ define(['step'],
                 }
             ]
             var end = function(err) {
-                this.conn.end()
+                if (this.conn) this.conn.end()
                 if (err) throw err
             }
             // These functions should manually propagate errors thrown
