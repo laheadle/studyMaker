@@ -1,4 +1,5 @@
 module.exports = function(grunt) {
+    var Q = require('q')
     // requirejs boilerplate
     var requirejs = require('requirejs');
 
@@ -39,31 +40,21 @@ module.exports = function(grunt) {
         var done = this.async();
         requirejs
         ([
-            'createDB',
-            'createTables',
-            'step'
-        ],
-         function (createDB, 
-                   createTables,
-                   step) {
-             var conf = grunt.config('createDev.config')
-             ,dbConf = conf.db
-             ,serverConf = conf.server
-             ,pool = null
-             step(
-                 function() {
-                     createDB(dbConf, this)
-                 },
-                 function(err) {
-                     if (err) throw err
-                     createTables(dbConf, this)
-                 },
-                 function(err) {
-                     if (err) { console.log(err); throw err }
-                     done()
-                 }
-             )
-         })
+	    'createDB',
+            'createTables'
+        ], function (createDB, createTables) {
+            var conf = grunt.config('createDev.config')
+            ,dbConf = conf.db
+	    createDB(dbConf).then(
+		function () {
+		    return createTables(dbConf)
+		}
+	    ).then(done).fail(
+		function(e) { 
+		    done(e) 
+		}
+	    ).done()
+        })
     })
 
     grunt.task.registerTask('importDeck', 'import a deck into a database', function() {

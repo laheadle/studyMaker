@@ -12,6 +12,7 @@
     "underscore": "1.x.x",
     "open": "0.x.x",
     "sinon": "x",
+    "q": "x",
     "grunt-contrib-jshint": "0.x.x"
   },
   "engine": "node >= 0.8.1",

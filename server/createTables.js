@@ -1,8 +1,7 @@
 define
-(['stepCon', 
-  'mysql'],
+(['mysql', 'q'],
 
- function (stepCon, mysql) {
+ function (mysql, Q) {
      var createSheet =
          "create table tsheet (cid integer auto_increment primary key, cname varchar(256) not null)"
 
@@ -10,21 +9,20 @@ define
          "create table tcard (cid integer auto_increment primary key,  cquestion text not null, canswer text not null, "+
          "cdifficulty integer not null, cshow varchar(1) not null, ccolor varchar(32) not null, csheet integer not null references tsheet)"
 
-     return function(db, callb){
+     return function(db){
          var pool  = mysql.createPool(db);
-         var conn = null
-         stepCon(
-             pool,
-             function sheet(connection) {
-                 conn = connection
-                 conn.query(createSheet, this)
-             },
-             function card() {
-                 conn.query(createCard, function(){
-                     callb(false, pool)
-                 })
-             }
-         )
+         var getConnection = Q.nbind(pool.getConnection, pool)
+
+         function tables(conn) {
+	     return Q.ninvoke(conn, 'query', createSheet)
+		 .then(
+		     function () {
+			 return Q.ninvoke(conn, 'query', createCard)
+		     }
+		 )
+	 }
+
+	 return getConnection().then(tables)
      }
  })
 
