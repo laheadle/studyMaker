@@ -36,6 +36,14 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
+    function asyncTask(done, promise) {
+	promise.then(done).fail(
+	    function(e) { 
+		done(e) 
+	    }
+	).done()
+    }
+
     grunt.task.registerTask('createDev', 'Create the dev database', function() {
         var done = this.async();
         requirejs
@@ -45,25 +53,14 @@ module.exports = function(grunt) {
         ], function (createDB, createTables) {
             var conf = grunt.config('createDev.config')
             ,dbConf = conf.db
-	    createDB(dbConf).then(
-		function () {
-		    return createTables(dbConf)
-		}
-	    ).then(done).fail(
-		function(e) { 
-		    done(e) 
-		}
-	    ).done()
+	    asyncTask(done,
+		      createDB(dbConf).then(
+			  function () {
+			      return createTables(dbConf)
+			  }
+		      ))
         })
     })
-
-    function asyncTask(done, promise) {
-	promise.then(done).fail(
-	    function(e) { 
-		done(e) 
-	    }
-	).done()
-    }
 
     grunt.task.registerTask('importDeck', 'import a deck into a database', function() {
 	var done = this.async()
