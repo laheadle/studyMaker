@@ -6,17 +6,20 @@ define(
          * Module dependencies.
          */
 
-        var Step = require("step")
+        var Q = require("q")
         , async = require("async")
         , mysql = require("mysql")
         , fs = require("fs")
         , _ = require("underscore")
-        , insertCards = require("insertCards")
+        , _insertCards = require("insertCards")
 
-        return function(pool, from, callb) {
+
+        return function(db, from) {
             if(!from) throw new Error("import what?")
 
             var cards = []
+	    var pool  = mysql.createPool(db);
+            var getConnection = Q.nbind(pool.getConnection, pool)
 
             function pairs(lst) {
                 var cur = null
@@ -33,46 +36,36 @@ define(
                 return retval
             }
 
- 
+	    
             function getRandomInt (min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
 
-            var connection;
+	    return getConnection().then(
+		function (connection) {
+		    function readFile() {
+			return Q.nfcall(fs.readFile, './sheets/'+from +'.txt', 'utf8')
+		    }
 
-            Step(
-                function openFile() {
-                    fs.readFile('./sheets/'+from +'.txt', 'utf8', this)
-                },
-                function readFile(err, txt) {
-                    if (err) { throw err }
-                    return cards = pairs(txt.split(/\r?\n/))
-                },
-                function openConn(err) {
-                    if (err) { throw err }
-                    pool.getConnection(this);
-                },
-                function withConn(err, c) {
-                    if (err) { throw err }
-                    connection = c
-                    connection.query('insert into tsheet (cname) values(?)', from, this);
-                },
-                function insertAll(err, result) {
-                    if (err) { throw err }
+		    return readFile()
+			.then(function insertSheet(txt) {
+			    cards = pairs(txt.split(/\r?\n/))
+			    return Q.ninvoke(connection, 'query', 'insert into tsheet (cname) values(?)', from)
+			}).spread(function insertCards(result, _fields) {
 
-                    var cardObjs = _.map(cards, function(card) { 
-                        return { 
-                            cquestion: card[0], 
-                            canswer: card[1],
-                            cdifficulty: 5,
-                            cshow: 'q', 
-                            ccolor: 'color'+getRandomInt(0, 5),
-                        }
-                    })
+			    var cardObjs = _.map(cards, function(card) { 
+				return { 
+				    cquestion: card[0], 
+				    canswer: card[1],
+				    cdifficulty: 5,
+				    cshow: 'q', 
+				    ccolor: 'color'+getRandomInt(0, 5),
+				}
+			    })
 
-                    insertCards(connection, cardObjs, result.insertId, callb)
-                }
-            )
-        }
+			    return Q.nfcall(_insertCards, connection, cardObjs, result.insertId)
+			})
+		})
+	}
     }
 )

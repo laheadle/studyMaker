@@ -57,31 +57,28 @@ module.exports = function(grunt) {
         })
     })
 
+    function asyncTask(done, promise) {
+	promise.then(done).fail(
+	    function(e) { 
+		done(e) 
+	    }
+	).done()
+    }
+
     grunt.task.registerTask('importDeck', 'import a deck into a database', function() {
-        var done = this.async();
+	var done = this.async()
         requirejs
         ([
             'createPool',
-            'import',
-            'step'
+            'import'
         ],
          function (createPool,
-                   importDeck,
-                   step) {
+                   importDeck) {
              var conf = grunt.config('importDeck.config')
              ,dbConf = conf.db
-             ,serverConf = conf.server
-             ,pool = null
-             step(
-                 function() {
-                     createPool(dbConf, this)
-                 },
-                 function(err, pool) {
-                     if (err) throw err
-                     importDeck(pool, grunt.option('from') || 'reformation', done)
-                 }
-             )
-         })
+	     asyncTask(done, importDeck(dbConf, grunt.option('from') || 'reformation'))
+           }
+         )
     })
 
     grunt.task.registerTask('dev', 'start the dev server', function() {
