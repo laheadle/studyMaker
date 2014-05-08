@@ -82,33 +82,20 @@ module.exports = function(grunt) {
         var done = this.async();
         requirejs
         ([
-            'step',
-            'createPool',
             'start',
             'open'
         ],
-         function (step,
-                   createPool,
-                   startServer,
+         function (startServer,
                    open) {
              var conf = grunt.config('dev.config')
-             ,dbConf = conf.db
-             ,serverConf = conf.server
-             step(
-                 function() {
-                     createPool(dbConf, this)
-                 },
-                 function(err, pool) {
-                     if (err) {console.log(err); throw err}
-                     startServer(pool, serverConf, this)
-                 },
-                 function(err) {
-                     if (err) throw err
-                     open('http://'+serverConf.host+':'+serverConf.port+'/sheets/all')
-                 }
-             )
-         })
+	     startServer(conf).then(
+		 function() {
+		     console.log('opening')
+		     open('http://'+conf.server.host+':'+conf.server.port+'/sheets/all')
+		 }).done()
+	 })
     })
+		       
 
     // Set up test data and run the test suite. You can pass the
     // option --no-run if you don't want this to actually open a

@@ -10,16 +10,17 @@ define(
         , http = require('http')
         , fs = require('fs')
         , path = require('path')
-        , Step = require('step')
         , mysql = require('mysql')
-        , stepCon = require('stepCon')
+	, stepCon = require('stepCon')
+	, Q = require("q")
 
-        return function(pool, config, callb) {
-
+        return function(config) {
+	    var pool = mysql.createPool(config.db)
+	    var serverConfig = config.server
             var app = express();
 
             app.configure(function(){
-                app.set('port', config.port);
+                app.set('port', serverConfig.port);
                 app.set('view engine', 'ejs');
                 app.set('views', './views');
                 app.use(express.favicon());
@@ -88,10 +89,11 @@ define(
                 )
             })
 
-            http.createServer(app).listen(app.get('port'), function() {
-                console.log("Express server listening on port " + app.get('port'))
-                callb()
-            })
+            var server = http.createServer(app)
+	    return Q.ninvoke(server, 'listen', app.get('port')).then(
+		function() {
+		    console.log("Express server listening on port " + app.get('port'))
+		})
         }
     }
 )
